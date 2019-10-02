@@ -61,7 +61,7 @@ public class ReclamationControllerTest {
 		ResultActions rs = mockMvc.perform( post("/Reclamation/create")
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(rec)))
-				.andExpect(status().isNotImplemented());
+				.andExpect(status().isBadRequest());
 		rs.andDo(print());
 	}
 	

@@ -40,9 +40,14 @@ public class UserControllerTest {
 	@Test
 	public void testCreate() throws JsonProcessingException, Exception {
 		Departement dept = new Departement();
-		dept.setId(1l);
-		User usr = new User();
+		dept.setLibelle("Security");
 
+		ResultActions rs = mockMvc.perform(post("/Departement/create").contentType("application/json")
+				.content(objectMapper.writeValueAsString(dept))).andExpect(status().isCreated());
+		rs.andDo(print());
+		
+		
+		User usr = new User();
 		usr.setFirstName("bob");
 		usr.setSecondName("JAVA");
 		usr.setFunction("Designer");
@@ -50,11 +55,11 @@ public class UserControllerTest {
 		usr.setPassword("5555");
 		usr.setDepartement(dept);
 		
-		ResultActions rs = mockMvc.perform( post("/User/create")
+		ResultActions rs1 = mockMvc.perform( post("/User/create")
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(usr)))
 				.andExpect(status().isCreated());
-		rs.andDo(print());
+		rs1.andDo(print());
 	}
 	@Test
 	public void testCreate1() throws JsonProcessingException, Exception {
@@ -63,11 +68,12 @@ public class UserControllerTest {
 		ResultActions rs = mockMvc.perform( post("/User/create")
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(usr)))
-				.andExpect(status().isNotImplemented());
+				.andExpect(status().isBadRequest());
 		rs.andDo(print());
 	}
 	@Test
 	public void testDelete() throws Exception {
+	
 		ResultActions rs = mockMvc.perform( delete("/User/delete/1"))
 				.andExpect(status().isOk());
 		rs.andDo(print());	}

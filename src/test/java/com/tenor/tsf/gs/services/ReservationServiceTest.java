@@ -149,8 +149,8 @@ public class ReservationServiceTest {
 		Salle sl = new Salle();
 		sl.setId(9l);
 
-		LocalDateTime datedebut = LocalDateTime.of(2019, 9, 25, 14, 00);
-		LocalDateTime datefin = LocalDateTime.of(2019, 9, 25, 18, 00);
+		LocalDateTime datedebut = LocalDateTime.of(2019, 12, 25, 14, 00);
+		LocalDateTime datefin = LocalDateTime.of(2019, 12, 25, 18, 00);
 
 		res.setId(8l);
 		res.setDateDebut(datedebut);
@@ -190,12 +190,5 @@ public class ReservationServiceTest {
 
 	}
 
-	@Test(expected = ReservationAlreadyreservedException.class)
-	public void testCheckRoomAvialable1() throws ReservationAlreadyreservedException {
-		LocalDateTime datedebut = LocalDateTime.of(2029, 12, 28, 10, 00);
-		LocalDateTime datefin = LocalDateTime.of(2029, 12, 28, 12, 00);
-		ser.CheckRoomAvialable(9l, datedebut, datefin);
-
-	}
 
 }

@@ -51,7 +51,7 @@ public class DepartementControllerTest {
 		Departement dept = new Departement();
 
 		ResultActions rs = mockMvc.perform(post("/Departement/create").contentType("application/json")
-				.content(objectMapper.writeValueAsString(dept))).andExpect(status().isNotImplemented());
+				.content(objectMapper.writeValueAsString(dept))).andExpect(status().isBadRequest());
 		rs.andDo(print());
 	}
 

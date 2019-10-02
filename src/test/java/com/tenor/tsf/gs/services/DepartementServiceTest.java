@@ -2,7 +2,6 @@ package com.tenor.tsf.gs.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Optional;
 
@@ -39,15 +38,21 @@ DepartementService ser;
 	}
 
 	@Test
-	public void testGetById() {
-		Long id =7l;
+	public void testGetById() throws DepartementNullException {
+		Departement dep= new Departement();
+		dep.setLibelle("Security");
+		ser.create(dep);
+		Long id =dep.getId();
 		ser.getById(id);
 	}
 
 
 	@Test
-	public void testDeleteDept() throws DepartmentNotFoundException {
-		Long id =12l;
+	public void testDeleteDept() throws DepartmentNotFoundException, DepartementNullException {
+		Departement dep= new Departement();
+		dep.setLibelle("Security");
+		ser.create(dep);
+		Long id =dep.getId();
 		ser.deleteDept(id);
 		assertEquals(Optional.empty(), ser.getById(id));
 	}
@@ -60,7 +65,10 @@ DepartementService ser;
 	@Test
 	public void testUpdate() throws DepartmentNotFoundException, DepartementNullException {
 		Departement dep= new Departement();
-		dep.setId(1l);
+		Departement dep1= new Departement();
+		dep1.setLibelle("Cleaning");
+		ser.create(dep1);
+		dep.setId(dep1.getId());
 		dep.setLibelle("Cleaning 2");
 		ser.update(dep);
 	}
@@ -79,7 +87,7 @@ DepartementService ser;
 
 	@Test
 	public void testGetAllDepartements() {
-		fail("Not yet implemented");
+ser.getAllDepartements();
 	}
 
 }

@@ -49,8 +49,13 @@ public class SalleServiceTest {
 	}
 
 	@Test
-	public void testDelete() throws SalleNotFoundException {
-		Long id = 22l;
+	public void testDelete() throws SalleNotFoundException, SalleNullException {
+		Salle sal = new Salle();
+		sal.setCapacite(25);
+		sal.setLibelle("Madrid");
+		ser.create(sal);
+		
+		Long id = sal.getId();
 		ser.delete(id);
 		assertEquals(Optional.empty(), ser.getById(id));
 	}
@@ -64,11 +69,13 @@ public class SalleServiceTest {
 	@Test
 	public void testUpdate() throws SalleNotFoundException, SalleNullException {
 		Salle sal = new Salle();
-		sal.setId(2l);
+		sal.setCapacite(25);
+		sal.setLibelle("Madrid");
+		ser.create(sal);
+		
 		sal.setCapacite(50);
 		sal.setLibelle("Rio");
 		ser.update(sal);
-		assertEquals(sal, ser.getById(sal.getId()).get());
 
 	}
 	@Test(expected = SalleNullException.class)

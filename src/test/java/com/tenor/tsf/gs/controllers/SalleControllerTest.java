@@ -53,7 +53,7 @@ public class SalleControllerTest {
 		Salle sal = new Salle();
 
 		ResultActions rs = mockMvc.perform(post("/Salle/create").contentType("application/json")
-				.content(objectMapper.writeValueAsString(sal))).andExpect(status().isNotImplemented());
+				.content(objectMapper.writeValueAsString(sal))).andExpect(status().isBadRequest());
 		rs.andDo(print());
 	}
 

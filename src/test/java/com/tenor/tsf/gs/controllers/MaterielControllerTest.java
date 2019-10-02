@@ -53,7 +53,7 @@ public class MaterielControllerTest {
 		ResultActions rs = mockMvc.perform( post("/Materiel/create")
 				.contentType("application/json")
 				.content(objectMapper.writeValueAsString(mat)))
-				.andExpect(status().isNotImplemented());
+				.andExpect(status().isBadRequest());
 		rs.andDo(print());
 	}
 

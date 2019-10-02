@@ -76,8 +76,8 @@ public class ReservationControllerTest {
 		Salle sl = new Salle();
 		sl.setId(1l);
 
-		LocalDateTime datedebut = LocalDateTime.of(2019, 11, 15, 10, 00);
-		LocalDateTime datefin = LocalDateTime.of(2019, 11, 15, 16, 00);
+		LocalDateTime datedebut = LocalDateTime.of(2019, 9, 15, 10, 00);
+		LocalDateTime datefin = LocalDateTime.of(2019, 8, 15, 16, 00);
 
 		res.setDateDebut(datedebut);
 		res.setDateFin(datefin);

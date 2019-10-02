@@ -24,12 +24,15 @@ import com.tenor.tsf.gs.exception.UserNullException;
 public class UserServiceTest {
 	@Autowired
 	UserService ser;
+	@Autowired
+	DepartementService deptSer;
 
 	@Test
 	public void testCreate() throws DepartementNullException, UserNullException {
 		Departement dept = new Departement();
-		dept.setId(2l);
-
+		dept.setLibelle("Design");
+		deptSer.create(dept);
+		
 		User usr = new User();
 		User usr1 = new User();
 		User usr2 = new User();
@@ -69,9 +72,21 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testDelete() throws UserNotFoundException {
+	public void testDelete() throws UserNotFoundException, DepartementNullException, UserNullException {
+		Departement dept = new Departement();
+		dept.setLibelle("Design");
+		deptSer.create(dept);
+		
+		User usr = new User();
+		usr.setFirstName("yassine");
+		usr.setSecondName("makassi");
+		usr.setFunction("Designer");
+		usr.setPseudo("YM");
+		usr.setPassword("1234");
+		usr.setDepartement(dept);
+		usr = ser.create(usr);
 
-		long id = 4l;
+		long id = usr.getId();
 		ser.delete(id);
 		assertEquals(Optional.empty(), ser.getById(id));
 
@@ -84,11 +99,23 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testUpdate() throws UserNotFoundException, UserNullException {
+	public void testUpdate() throws UserNotFoundException, UserNullException, DepartementNullException {
+		
 		Departement dept = new Departement();
-		dept.setId(2l);
+		dept.setLibelle("Design");
+		deptSer.create(dept);
+		
+		User usr1 = new User();
+		usr1.setFirstName("yassine");
+		usr1.setSecondName("makassi");
+		usr1.setFunction("Designer");
+		usr1.setPseudo("YM");
+		usr1.setPassword("1234");
+		usr1.setDepartement(dept);
+		 ser.create(usr1);
+		
 		User usr = new User();
-		usr.setId(2l);
+		usr.setId(usr1.getId());
 		usr.setFirstName("yassine");
 		usr.setSecondName("makarib");
 		usr.setFunction("Designer");

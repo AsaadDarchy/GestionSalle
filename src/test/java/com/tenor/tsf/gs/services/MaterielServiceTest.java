@@ -15,6 +15,7 @@ import com.tenor.tsf.gs.entity.Materiel;
 import com.tenor.tsf.gs.entity.Salle;
 import com.tenor.tsf.gs.exception.MaterielNotFoundException;
 import com.tenor.tsf.gs.exception.MaterielNullException;
+import com.tenor.tsf.gs.exception.SalleNullException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,12 +27,14 @@ public class MaterielServiceTest {
 	SalleService sa;
 
 	@Test
-	public void testCreate() throws MaterielNullException {
+	public void testCreate() throws MaterielNullException, SalleNullException {
 		Materiel mat = new Materiel();
 		Materiel mat1 = new Materiel();
 		Materiel mat2 = new Materiel();
 		Salle sal = new Salle();
-		sal.setId(2l);
+		sal.setCapacite(110);
+		sal.setLibelle("Rabat");
+		sa.create(sal);
 
 		mat.setLibelle("TV");
 		mat.setCategortie("Electronics");
@@ -54,10 +57,13 @@ public class MaterielServiceTest {
 	}
 
 	@Test(expected = MaterielNullException.class)
-	public void testCreate1() throws MaterielNullException {
+	public void testCreate1() throws MaterielNullException, SalleNullException {
 		Materiel mat = new Materiel();
 		Salle sal = new Salle();
-
+		sal.setCapacite(25);
+		sal.setLibelle("Rio");
+		sa.create(sal);
+		
 		mat.setLibelle("CARPET");
 		mat.setSalle(sal);
 		ser.create(mat);
@@ -65,8 +71,19 @@ public class MaterielServiceTest {
 	}
 
 	@Test
-	public void testDelete() throws MaterielNotFoundException {
-		Long id = 4l;
+	public void testDelete() throws MaterielNotFoundException, SalleNullException, MaterielNullException {
+		Materiel mat = new Materiel();
+		Salle sal = new Salle();
+		sal.setCapacite(25);
+		sal.setLibelle("Berlin");
+		sa.create(sal);
+		
+		mat.setLibelle("TV");
+		mat.setCategortie("Electronics");
+		mat.setSalle(sal);
+		ser.create(mat);
+
+		Long id = mat.getId();
 		ser.delete(id);
 		assertEquals(Optional.empty(), ser.getById(id));
 
@@ -79,14 +96,18 @@ public class MaterielServiceTest {
 	}
 
 	@Test
-	public void testUpdate() throws MaterielNullException, MaterielNotFoundException {
+	public void testUpdate() throws MaterielNullException, MaterielNotFoundException, SalleNullException {
 		Materiel mat = new Materiel();
 		Salle sal = new Salle();
-		sal.setId(1l);
+		sal.setCapacite(25);
+		sal.setLibelle("Berlin");
+		sa.create(sal);
+
 		mat.setId(1l);
 		mat.setLibelle("Chair");
 		mat.setCategortie("FURNITURE");
 		mat.setSalle(sal);
+		
 		ser.update(mat);
 
 	}
